@@ -53,5 +53,6 @@ $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-$route['contacts'] = 'contacts/index';
+$route['create'] = 'contacts/create';
 $route['contact/(:any)'] = 'contacts/show/$1';
+$route['contacts'] = 'contacts/index';

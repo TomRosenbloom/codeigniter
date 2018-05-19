@@ -1,4 +1,6 @@
-
+<p>
+    <a href="<?php echo site_url('create'); ?>">Add contact</a>
+</p>
 
 <?php foreach ($contacts as $contact): ?>
 
@@ -6,6 +8,6 @@
         <div class="main">
                 <?php echo $contact['email']; ?>
         </div>
-        <p><a href="<?php echo site_url('contacts/'.$contact['slug']); ?>">View contact</a></p>
+        <p><a href="<?php echo site_url('contact/'.$contact['slug']); ?>">View contact</a></p>
 
 <?php endforeach; ?>
