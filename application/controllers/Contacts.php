@@ -6,6 +6,8 @@ class Contacts extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('contact_model');
+        $this->load->model('honorific_model');
+        $this->load->model('city_model');
         $this->load->helper('url_helper');
     }
 
@@ -49,6 +51,8 @@ class Contacts extends CI_Controller {
 
         $data['title'] = 'Contact - create';
         $data['heading'] = 'Add new contact';
+        $data['honorifics'] = $this->honorific_model->get_honorifics();
+        $data['cities'] = $this->city_model->get_cities();
 
         $this->form_validation->set_rules('first_name', 'First name', 'required');
         $this->form_validation->set_rules('last_name', 'Last name', 'required');

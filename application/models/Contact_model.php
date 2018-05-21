@@ -1,7 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Contact_model extends CI_Model{
+class Contact_model extends CI_Model
+{
 
     public function __construct()
     {
@@ -32,7 +33,7 @@ class Contact_model extends CI_Model{
 
         $data = array(
             'slug' => $slug,
-            'title_id' => $this->input->post('title_id'),
+            'honorific_id' => $this->input->post('honorific_id'),
             'first_name' => $this->input->post('first_name'),
             'last_name' => $this->input->post('last_name'),
             'birth_date' => $this->input->post('birth_date'),

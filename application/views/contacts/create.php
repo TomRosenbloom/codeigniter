@@ -9,9 +9,10 @@
 <div class="grid-x grid-padding-x">
     <div class="cell small-4">
         <label for="title">Title</label>
-        <select class="" name="title_id">
-            <option value="1">Mr</option>
-            <option value="2">Ms</option>
+        <select class="" name="honorific_id">
+            <?php foreach($honorifics as $honorific): ?>
+                <option value="<?= $honorific['id'] ?>"><?= $honorific['name'] ?></option>
+            <?php endforeach ?>
         </select>
     </div>
 
@@ -40,9 +41,13 @@
         <input type="input" name="addr_2" />
     </div>
 
-    <div class="cell">
+    <div class="cell small-4">
         <label for="city_id">City</label>
-        <input type="input" name="city_id" />
+        <select class="" name="city_id">
+            <?php foreach($cities as $city): ?>
+                <option value="<?= $city['id'] ?>"><?= $city['name'] ?></option>
+            <?php endforeach ?>
+        </select>
     </div>
 
     <div class="cell">
