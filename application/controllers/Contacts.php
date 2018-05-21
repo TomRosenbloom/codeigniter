@@ -29,6 +29,8 @@ class Contacts extends CI_Controller {
 
     public function show($slug = NULL)
     {
+        $this->load->helper('form'); // for the delete form/button
+
         $data['contact'] = $this->contact_model->get_contacts($slug);
 
         if (empty($data['contact']))
@@ -71,5 +73,42 @@ class Contacts extends CI_Controller {
             $this->contact_model->store_contact();
             redirect('contacts');
         }
+    }
+
+    public function edit($slug)
+    {
+
+        $this->load->helper('form');
+        $this->load->library('form_validation');
+
+        $data['contact'] = $this->contact_model->get_contacts($slug);
+
+        if (empty($data['contact']))
+        {
+            show_404();
+        }
+
+        $data['title'] = $data['title'] = 'Contact - edit';
+        $data['heading'] = 'Edit contact details';
+        $data['honorifics'] = $this->honorific_model->get_honorifics();
+        $data['cities'] = $this->city_model->get_cities();
+
+        if ($this->form_validation->run() === FALSE)
+        {
+            $this->load->view('templates/header', $data);
+            $this->load->view('contacts/edit', $data);
+            $this->load->view('templates/footer');
+        }
+        else
+        {
+            $this->contact_model->update_contact($id);
+            redirect('contacts');
+        }
+    }
+
+
+    public function delete($id) {
+        $this->contact_model->delete_contact($id);
+        redirect('contacts');
     }
 }
