@@ -1,42 +1,69 @@
-
-
-<?php echo validation_errors(); ?>
+<div class="grid-x grid-padding-x">
+    <div class="cell">
+        <?php echo validation_errors(); ?>
+    </div>
+</div>
 
 <?php echo form_open('create'); ?>
 
-    <label for="title">Title</label>
-    <select class="" name="title_id">
-        <option value="1">Mr</option>
-        <option value="2">Ms</option>
-    </select>
+<div class="grid-x grid-padding-x">
+    <div class="cell small-4">
+        <label for="title">Title</label>
+        <select class="" name="title_id">
+            <option value="1">Mr</option>
+            <option value="2">Ms</option>
+        </select>
+    </div>
 
-    <label for="first_name">First name</label>
-    <input type="input" name="first_name" /><br />
+    <div class="cell">
+        <label for="first_name">First name</label>
+        <input type="input" name="first_name" />
+    </div>
 
-    <label for="last_name">Last name</label>
-    <input type="input" name="last_name" /><br />
+    <div class="cell">
+        <label for="last_name">Last name</label>
+        <input type="input" name="last_name" />
+    </div>
 
-    <label for="birth_date">Date of birth</label>
-    <input type="input" name="birth_date" /><br />
+    <div class="cell">
+        <label for="birth_date">Date of birth</label>
+        <input type="input" name="birth_date" />
+    </div>
 
-    <label for="addr_1">Address line 1</label>
-    <input type="input" name="addr_1" /><br />
+    <div class="cell">
+        <label for="addr_1">Address line 1</label>
+        <input type="input" name="addr_1" />
+    </div>
 
-    <label for="addr_2">Address line 2</label>
-    <input type="input" name="addr_2" /><br />
+    <div class="cell">
+        <label for="addr_2">Address line 2</label>
+        <input type="input" name="addr_2" />
+    </div>
 
-    <label for="city_id">City</label>
-    <input type="input" name="city_id" /><br />
+    <div class="cell">
+        <label for="city_id">City</label>
+        <input type="input" name="city_id" />
+    </div>
 
-    <label for="postcode">Postcode</label>
-    <input type="input" name="postcode" /><br />
+    <div class="cell">
+        <label for="postcode">Postcode</label>
+        <input type="input" name="postcode" />
+    </div>
 
-    <label for="tel">Telephone</label>
-    <input type="input" name="tel" /><br />
+    <div class="cell">
+        <label for="tel">Telephone</label>
+        <input type="input" name="tel" />
+    </div>
 
-    <label for="email">Email address</label>
-    <input type="input" name="email" /><br />
+    <div class="cell">
+        <label for="email">Email address</label>
+        <input type="input" name="email" />
+    </div>
 
-    <input type="submit" name="submit" value="Create contact" />
+    <div class="cell">
+        <input type="submit" name="submit" value="Create contact" />
+    </div>
+
+</div>
 
 </form>
