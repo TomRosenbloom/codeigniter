@@ -6,5 +6,9 @@
         <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>zurb/css/foundation.min.css">
     </head>
     <body>
-
-    <h1><?php echo $heading; ?></h1>
+        <div class="grid-container">
+          <div class="grid-x grid-padding-x">
+            <div class="large-12 cell">
+              <h1><?php echo $heading; ?></h1>
+            </div>
+          </div>
