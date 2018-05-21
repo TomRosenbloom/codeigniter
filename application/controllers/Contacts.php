@@ -35,7 +35,7 @@ class Contacts extends CI_Controller {
         }
 
         $data['title'] = $data['title'] = 'Contact - show';
-        $data['heading'] = $data['contact']['first_name'];
+        $data['heading'] = 'Contact details';
 
         $this->load->view('templates/header', $data);
         $this->load->view('contacts/show', $data);
@@ -48,7 +48,7 @@ class Contacts extends CI_Controller {
         $this->load->library('form_validation');
 
         $data['title'] = 'Contact - create';
-        $data['heading'] = '';
+        $data['heading'] = 'Add new contact';
 
         $this->form_validation->set_rules('first_name', 'First name', 'required');
         $this->form_validation->set_rules('last_name', 'Last name', 'required');

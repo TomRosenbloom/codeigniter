@@ -7,8 +7,16 @@
     </head>
     <body>
         <div class="grid-container">
-          <div class="grid-x grid-padding-x">
-            <div class="large-12 cell">
-              <h1><?php echo $heading; ?></h1>
-            </div>
-          </div>
+            <header>
+                <div class="grid-x grid-padding-x">
+                  <div class="large-12 cell">
+                    <span class=""><a href="<?php echo base_url();?>">Contacts database</a></span>
+                  </div>
+                </div>
+            </header>
+            <main>
+                <div class="grid-x grid-padding-x">
+                  <div class="large-12 cell">
+                    <h1><?php echo $heading; ?></h1>
+                  </div>
+                </div>
