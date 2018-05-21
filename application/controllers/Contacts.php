@@ -69,7 +69,7 @@ class Contacts extends CI_Controller {
         else
         {
             $this->contact_model->store_contact();
-            $this->load->view('contacts/index'); // gets us back to the contacts listing, but with no contacts data
+            redirect('contacts');
         }
     }
 }
