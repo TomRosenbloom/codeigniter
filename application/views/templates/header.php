@@ -4,6 +4,13 @@
         <meta charset="utf-8">
         <title><?= $title; ?></title>
         <link rel="stylesheet" type="text/css" href="<?= base_url() ?>zurb/css/foundation.min.css">
+
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+        <script src="<?= base_url() ?>zurb/js/vendor/jquery.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
     </head>
     <body>
         <div class="grid-container">

@@ -7,12 +7,12 @@
 <?php echo form_open('create'); ?>
 
 <div class="grid-x grid-padding-x">
-    <div class="cell small-4">
+    <div class="cell small-2">
         <label for="title">Title</label>
         <select class="" name="honorific_id">
             <option value="">Select title</option>
             <?php foreach($honorifics as $honorific): ?>
-                <option value="<?= $honorific['id'] ?>" >
+                <option value="<?= $honorific['id'] ?>" <?php echo ($this->input->post('honorific_id') == $honorific['id']) ? 'selected="selected"' : '' ?>>
                     <?= $honorific['name'] ?>
                 </option>
             <?php endforeach ?>
@@ -35,7 +35,7 @@
 <div class="grid-x grid-padding-x">
     <div class="cell small-3">
         <label for="birth_date">Date of birth</label>
-        <input type="text" name="birth_date" value="<?php echo set_value('birth_date'); ?>"/>
+        <input type="text" name="birth_date" value="<?php echo set_value('birth_date'); ?>" id="dob" />
     </div>
 </div>
 
@@ -59,11 +59,15 @@
         <select class="" name="city_id">
             <option value="">Select city</option>
             <?php foreach($cities as $city): ?>
-                <option value="<?= $city['id'] ?>"><?= $city['name'] ?></option>
+                <option value="<?= $city['id'] ?>"<?php echo ($this->input->post('city_id') == $city['id']) ? 'selected="selected"' : '' ?>>
+                    <?= $city['name'] ?>
+                </option>
             <?php endforeach ?>
         </select>
     </div>
+</div>
 
+<div class="grid-x grid-padding-x">
     <div class="cell small-4">
         <label for="postcode">Postcode</label>
         <input type="text" name="postcode" value="<?php echo set_value('postcode'); ?>"/>
@@ -75,7 +79,9 @@
         <label for="tel">Telephone</label>
         <input type="text" name="tel" value="<?php echo set_value('tel'); ?>"/>
     </div>
+</div>
 
+<div class="grid-x grid-padding-x">
     <div class="cell small-4">
         <label for="email">Email address</label>
         <input type="text" name="email" value="<?php echo set_value('email'); ?>"/>
@@ -90,3 +96,14 @@
 </div>
 
 </form>
+
+<script>
+$(function(){
+    $('#dob').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        format: 'mm-dd-yyyy',
+        disableDblClickSelection: true
+    });
+});
+</script>
