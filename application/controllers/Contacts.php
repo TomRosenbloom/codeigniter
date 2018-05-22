@@ -15,7 +15,8 @@ class Contacts extends CI_Controller {
      * verifies string is valid full UK postcode OR just the area code e.g. EX4
      *
      * note, this only verifies the format, and not that the post code exists
-     * note 2, this needs moving somewhere else in due course
+     * note 2, this needs moving somewhere else in due course, but I think to do that I would
+     * need to change the way I am calling it: https://www.codeigniter.com/userguide3/libraries/form_validation.html
      *
      * @param  string $str
      * @return bool
@@ -78,11 +79,6 @@ class Contacts extends CI_Controller {
         $data['heading'] = 'Add new contact';
         $data['honorifics'] = $this->honorific_model->get_honorifics();
         $data['cities'] = $this->city_model->get_cities();
-
-        $this->form_validation->set_rules('first_name', 'First name', 'trim|required');
-        $this->form_validation->set_rules('last_name', 'Last name', 'trim|required');
-        $this->form_validation->set_rules('postcode', 'Postcode', 'required|callback_validate_postcode');
-        $this->form_validation->set_rules('email', 'Email address', 'required|valid_email');
 
         if ($this->form_validation->run() === FALSE)
         {
