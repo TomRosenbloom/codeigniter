@@ -22,3 +22,6 @@ $config = array(
         'rules' => 'required|valid_email'
     )
 );
+
+$config['error_prefix'] = '<div class="alert callout">';
+$config['error_suffix'] = '</div>';
