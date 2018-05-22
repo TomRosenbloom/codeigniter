@@ -11,34 +11,36 @@
         <label for="title">Title</label>
         <select class="" name="honorific_id">
             <?php foreach($honorifics as $honorific): ?>
-                <option value="<?= $honorific['id'] ?>"><?= $honorific['name'] ?></option>
+                <option value="<?= $honorific['id'] ?>" >
+                    <?= $honorific['name'] ?>
+                </option>
             <?php endforeach ?>
         </select>
     </div>
 
     <div class="cell">
         <label for="first_name">First name</label>
-        <input type="input" name="first_name" />
+        <input type="input" name="first_name" value="<?php echo set_value('first_name'); ?>"/>
     </div>
 
     <div class="cell">
         <label for="last_name">Last name</label>
-        <input type="input" name="last_name" />
+        <input type="input" name="last_name" value="<?php echo set_value('last_name'); ?>"/>
     </div>
 
     <div class="cell">
         <label for="birth_date">Date of birth</label>
-        <input type="input" name="birth_date" />
+        <input type="input" name="birth_date" value="<?php echo set_value('birth_date'); ?>"/>
     </div>
 
     <div class="cell">
         <label for="addr_1">Address line 1</label>
-        <input type="input" name="addr_1" />
+        <input type="input" name="addr_1" value="<?php echo set_value('addr_1'); ?>"/>
     </div>
 
     <div class="cell">
         <label for="addr_2">Address line 2</label>
-        <input type="input" name="addr_2" />
+        <input type="input" name="addr_2" value="<?php echo set_value('addr_2'); ?>"/>
     </div>
 
     <div class="cell small-4">
@@ -52,17 +54,17 @@
 
     <div class="cell">
         <label for="postcode">Postcode</label>
-        <input type="input" name="postcode" />
+        <input type="input" name="postcode" value="<?php echo set_value('postcode'); ?>"/>
     </div>
 
     <div class="cell">
         <label for="tel">Telephone</label>
-        <input type="input" name="tel" />
+        <input type="input" name="tel" value="<?php echo set_value('tel'); ?>"/>
     </div>
 
     <div class="cell">
         <label for="email">Email address</label>
-        <input type="input" name="email" />
+        <input type="input" name="email" value="<?php echo set_value('email'); ?>"/>
     </div>
 
     <div class="cell">

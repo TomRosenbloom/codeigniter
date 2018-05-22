@@ -13,7 +13,9 @@
         <label for="title">Title</label>
         <select class="" name="honorific_id">
             <?php foreach($honorifics as $honorific): ?>
-                <option value="<?= $honorific['id'] ?>" <?php echo ($contact['honorific_id'] == $honorific['id']) ? 'selected="selected"' : '' ?> ><?= $honorific['name'] ?></option>
+                <option value="<?= $honorific['id'] ?>" <?php echo ($contact['honorific_id'] == $honorific['id']) ? 'selected="selected"' : '' ?> >
+                    <?= $honorific['name'] ?>
+                </option>
             <?php endforeach ?>
         </select>
     </div>
