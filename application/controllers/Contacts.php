@@ -12,9 +12,9 @@ class Contacts extends CI_Controller {
     }
 
     /**
-     * verifies string is valid UK postcode
+     * verifies string is valid full UK postcode OR just the area code e.g. EX4
      *
-     * note, should allow partial postcode e.g. EX4?
+     * note, this only verifies the format, and not that the post code exists
      * note 2, this needs moving somewhere else in due course
      *
      * @param  string $str
@@ -22,9 +22,9 @@ class Contacts extends CI_Controller {
      */
     public function validate_postcode($str)
     {
-        if (1 !== preg_match("/^(GIR ?0AA|[A-PR-UWYZ]([0-9]{1,2}|([A-HK-Y][0-9]([0-9ABEHMNPRV-Y])?)|[0-9][A-HJKPS-UW]) ?[0-9][ABD-HJLNP-UW-Z]{2})$/", $str))
+        if (1 !== preg_match("/^(GIR ?0AA|[A-PR-UWYZ]([0-9]{1,2}|([A-HK-Y][0-9]([0-9ABEHMNPRV-Y])?)|[0-9][A-HJKPS-UW]) ?([0-9][ABD-HJLNP-UW-Z]{2})?)$/", $str))
         {
-            $this->form_validation->set_message('validate_postcode', 'The %s field must contain a valid UK postcode');
+            $this->form_validation->set_message('validate_postcode', 'The %s field must contain a valid UK postcode or area code');
             return FALSE;
         }
         else
