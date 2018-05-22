@@ -4,7 +4,7 @@
     </div>
 </div>
 
-<?php echo form_open('edit'); ?>
+<?php echo form_open('update'); ?>
 
 <input type="hidden" name="id" value="<?= $contact['id'] ?>">
 

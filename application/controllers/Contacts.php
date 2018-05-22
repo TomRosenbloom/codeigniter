@@ -99,13 +99,12 @@ class Contacts extends CI_Controller {
             $this->load->view('contacts/edit', $data);
             $this->load->view('templates/footer');
         }
-        else
-        {
-            $this->contact_model->update_contact($id);
-            redirect('contacts');
-        }
     }
 
+    public function update(){
+        $this->contact_model->update_contact();
+        redirect('contacts');
+    }
 
     public function delete($id) {
         $this->contact_model->delete_contact($id);

@@ -66,7 +66,7 @@ class Contact_model extends CI_Model
             'tel' => $this->input->post('tel'),
             'email' => $this->input->post('email')
         );
-
+        
         $this->db->where('id', $this->input->post('id'));
         return $this->db->update('contact', $data);
     }
