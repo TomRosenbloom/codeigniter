@@ -13,7 +13,7 @@
         <label for="title">Title</label>
         <select class="" name="honorific_id">
             <?php foreach($honorifics as $honorific): ?>
-                <option value="<?= $honorific['id'] ?>"><?= $honorific['name'] ?></option>
+                <option value="<?= $honorific['id'] ?>" <?php echo ($contact['honorific_id'] == $honorific['id']) ? 'selected="selected"' : '' ?> ><?= $honorific['name'] ?></option>
             <?php endforeach ?>
         </select>
     </div>
@@ -47,7 +47,7 @@
         <label for="city_id">City</label>
         <select class="" name="city_id">
             <?php foreach($cities as $city): ?>
-                <option value="<?= $city['id'] ?>"><?= $city['name'] ?></option>
+                <option value="<?= $city['id'] ?>" <?php echo ($contact['city_id'] == $city['id']) ? 'selected="selected"' : '' ?>><?= $city['name'] ?></option>
             <?php endforeach ?>
         </select>
     </div>
