@@ -9,7 +9,9 @@ class Contacts extends CI_Controller {
         $this->load->model('honorific_model');
         $this->load->model('city_model');
         $this->load->helper('url_helper');
+        $this->load->library('pagination');
     }
+
 
     /**
      * verifies string is valid full UK postcode OR just the area code e.g. EX4
@@ -35,19 +37,30 @@ class Contacts extends CI_Controller {
     }
 
 
-    public function index($page = 'index')
+    public function index()
     {
-        if ( ! file_exists(APPPATH.'views/contacts/'.$page.'.php'))
-        {
-            show_404();
-        }
 
-        $data['title'] = "Contacts - $page";
+        $data['title'] = "Contacts - home";
         $data['heading'] = "Contacts";
-        $data['contacts'] = $this->contact_model->get_contacts();
+
+        $per_page = 4;
+
+        $pagination_config = array();
+        $pagination_config['base_url'] = base_url();
+        $pagination_config['total_rows'] = $this->contact_model->record_count();
+        $pagination_config['per_page'] = $per_page;
+        //$pagination_config['uri_segment'] = 1; // how is this supposed to be used?
+        $uri_segment_page_no = 1; // the part of the uri that contains the pagination page number
+
+        $start_index = ($this->uri->segment($uri_segment_page_no)) ? $this->uri->segment($uri_segment_page_no) : 0;
+
+        $data['contacts'] = $this->contact_model->fetch_contacts($per_page, $start_index);
+
+        $this->pagination->initialize($pagination_config);
+        $data['links'] = $this->pagination->create_links();
 
         $this->load->view('templates/header', $data);
-        $this->load->view('contacts/'.$page, $data);
+        $this->load->view('contacts/index', $data);
         $this->load->view('templates/footer', $data);
     }
 

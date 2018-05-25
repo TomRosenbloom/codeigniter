@@ -6,20 +6,49 @@ class Contact_model extends CI_Model
 
     public function __construct()
     {
-      $this->load->database();
+        parent::__construct(); // code smell: https://martinfowler.com/bliki/CallSuper.html
+        $this->load->database();
+    }
+
+    public function record_count()
+    {
+        return $this->db->count_all('contact');
     }
 
     public function get_contacts($slug = FALSE)
     {
-        if ($slug === FALSE)
+        if ($slug === FALSE) // if there is no slug, get all the records
         {
             $this->db->order_by('last_name', 'ASC');
-            $query = $this->db->get('contact');
+            $query = $this->db->get('contact'); // I'm going to have to change my table names to plurals, this is bugging me
             return $query->result_array();
         }
 
+        // if there is a slug, return just the current record - do I not like this!
         $query = $this->db->get_where('contact', array('slug' => $slug));
         return $query->row_array();
+    }
+
+    /*
+    this is an alternative to get_contacts which initially at least I'm going to use
+    to implement pagination, without breaking get_contacts()
+    Longer term, I really don't like the way that the current get_contacts gets either
+    all or one contact depending on existence of slug - that is really bad practice
+    violates first principle of SOLID
+    (where did I get this code from? Not Traversy surely)
+     */
+    public function fetch_contacts($limit, $start)
+    {
+        $this->db->limit($limit, $start);
+        $query = $this->db->get('contact');
+
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return false;
     }
 
     public function store_contact()
@@ -66,7 +95,7 @@ class Contact_model extends CI_Model
             'tel' => $this->input->post('tel'),
             'email' => $this->input->post('email')
         );
-        
+
         $this->db->where('id', $this->input->post('id'));
         return $this->db->update('contact', $data);
     }
