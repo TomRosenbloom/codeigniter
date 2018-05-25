@@ -106,4 +106,11 @@ class Contact_model extends CI_Model
         $this->db->delete('contact');
         return true;
     }
+
+    public function deactivate_contact($id)
+    {
+        $this->db->where('id',$id);
+        $this->db->update('contact', array('status' => 0));
+        return true;
+    }
 }

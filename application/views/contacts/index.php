@@ -7,7 +7,7 @@
 </div>
 <div class="grid-x grid-padding-x">
     <div class="cell">
-        <?= $links; ?>       
+        <?= $links; ?>
     </div>
 </div>
 <div class="grid-x grid-padding-x">
@@ -23,7 +23,7 @@
             </thead>
             <tbody>
                 <?php foreach ($contacts as $contact): ?>
-                    <tr>
+                    <tr <?php echo ($contact->status == 0) ? 'class="deactivated"' : '' ?> >
                         <td>
                             <a href="<?= site_url('contact/'.$contact->slug); ?>">
                                 <?= $contact->first_name . " " . $contact->last_name; ?>

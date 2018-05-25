@@ -10,6 +10,12 @@
         <script src="<?= base_url() ?>zurb/js/vendor/jquery.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+        <style>
+        /*  temp fix - really should be adding to app.css and compiling */
+            .deactivated td {
+                color: LightGray;
+            }
+        </style>
 
     </head>
     <body>

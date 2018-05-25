@@ -158,4 +158,9 @@ class Contacts extends CI_Controller {
         $this->contact_model->delete_contact($id);
         redirect('contacts');
     }
+
+    public function deactivate($id) {
+        $this->contact_model->deactivate_contact($id);
+        redirect('contacts');
+    }
 }

@@ -8,6 +8,7 @@ $route['contacts'] = 'contacts/index';
 
 
 $route['create'] = 'contacts/create';
+$route['deactivate/(:any)'] = 'contacts/deactivate/$1';
 $route['delete/(:any)'] = 'contacts/delete/$1';
 $route['edit/(:any)'] = 'contacts/edit/$1';
 $route['update'] = 'contacts/update';
