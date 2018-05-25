@@ -52,6 +52,22 @@ class Contacts extends CI_Controller {
         //$pagination_config['uri_segment'] = 1; // how is this supposed to be used?
         $uri_segment_page_no = 1; // the part of the uri that contains the pagination page number
 
+        // here is a load of presentation config, which can only be done here in the controller
+        $pagination_config['full_tag_open'] = '<nav><ul class="pagination text-center">';
+        $pagination_config['full_tag_close'] = '</nav></ul>';
+        $pagination_config['num_tag_open'] = '<li>';
+        $pagination_config['num_tag_close'] = '</li>';
+        $pagination_config['first_tag_open'] = '<li>';
+        $pagination_config['first_tag_close'] = '</li>';
+        $pagination_config['last_tag_open'] = '<li>';
+        $pagination_config['last_tag_close'] = '</li>';
+        $pagination_config['next_tag_open'] = '<li class="pagination-next">';
+        $pagination_config['next_tag_close'] = '</li>';
+        $pagination_config['prev_tag_open'] = '<li class="pagination-previous">';
+        $pagination_config['prev_tag_close'] = '</li>';
+        $pagination_config['cur_tag_open'] = '<li class="current">';
+        $pagination_config['cur_tag_close'] = '</li>';
+
         $start_index = ($this->uri->segment($uri_segment_page_no)) ? $this->uri->segment($uri_segment_page_no) : 0;
 
         $data['contacts'] = $this->contact_model->fetch_contacts($per_page, $start_index);

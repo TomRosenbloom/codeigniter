@@ -1,13 +1,13 @@
 <div class="grid-x grid-padding-x">
     <div class="cell">
         <p>
-            <a href="<?php echo site_url('create'); ?>">Add a new contact</a>
+            <a href="<?= site_url('create'); ?>">Add a new contact</a>
         </p>
     </div>
 </div>
 <div class="grid-x grid-padding-x">
     <div class="cell">
-        <?= $links; ?>
+        <?= $links; ?>       
     </div>
 </div>
 <div class="grid-x grid-padding-x">
@@ -25,13 +25,13 @@
                 <?php foreach ($contacts as $contact): ?>
                     <tr>
                         <td>
-                            <a href="<?php echo site_url('contact/'.$contact->slug); ?>">
-                                <?php echo $contact->first_name . " " . $contact->last_name; ?>
+                            <a href="<?= site_url('contact/'.$contact->slug); ?>">
+                                <?= $contact->first_name . " " . $contact->last_name; ?>
                             </a>
                         </td>
                         <td><?= $contact->city ?? '' ?></td>
                         <td><?= isset($contact->postcode) ? $contact->postcode : '' ?></td>
-                        <td><?php echo isset($contact->email) ? $contact->email : '' ?></td>
+                        <td><?= isset($contact->email) ? $contact->email : '' ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

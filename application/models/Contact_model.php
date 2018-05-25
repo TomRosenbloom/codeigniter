@@ -35,7 +35,7 @@ class Contact_model extends CI_Model
     Longer term, I really don't like the way that the current get_contacts gets either
     all or one contact depending on existence of slug - that is really bad practice
     violates first principle of SOLID
-    (where did I get this code from? Not Traversy surely)
+    (where did I get this code from? Not Traversy surely - no, from the CI docs)
      */
     public function fetch_contacts($limit, $start)
     {
