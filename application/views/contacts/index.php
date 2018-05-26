@@ -1,3 +1,4 @@
+<?php //echo "<pre>"; var_dump($contacts); echo "</pre>"; ?>
 <div class="grid-x grid-padding-x">
     <div class="cell">
         <p>
@@ -54,9 +55,9 @@
                                 <?= $contact->first_name . " " . $contact->last_name; ?>
                             </a>
                         </td>
-                        <td><?= $contact->title ?? '' ?></td>
+                        <td><?= isset($contact->honorific) ? $contact->honorific : '' ?></td>
                         <td><?= isset($contact->birth_date) && $contact->birth_date != 0 ? $contact->birth_date : 'not entered' ?></td>
-                        <td><?= $contact->city ?? '' ?></td>
+                        <td><?= isset($contact->city_name) ? $contact->city_name : '' ?></td>
                         <td><?= isset($contact->postcode) ? $contact->postcode : '' ?></td>
                         <td><?= isset($contact->tel) && !empty($contact->tel) ? $contact->tel : 'not entered' ?></td>
                         <td><?= isset($contact->email) && !empty($contact->email) ? $contact->email : 'not entered' ?></td>
