@@ -12,12 +12,16 @@
 </div>
 <div class="grid-x grid-padding-x">
     <div class="cell">
-        <table>
+        <table id="contactsTable">
             <thead>
                 <tr>
+                    <th colspan="3">&nbsp;</th>
                     <th>Name</th>
+                    <th>Title</th>
+                    <th>Date of birth</th>
                     <th>City</th>
                     <th>Postcode</th>
+                    <th>Telephone</th>
                     <th>Email</th>
                 </tr>
             </thead>
@@ -25,13 +29,31 @@
                 <?php foreach ($contacts as $contact): ?>
                     <tr <?php echo ($contact->status == 0) ? 'class="deactivated"' : '' ?> >
                         <td>
+                            <a href="<?= site_url('edit/' . $contact->slug) ?>">
+                                <i class="fas fa-user-edit fa-lg" title="Edit contact <?= $contact->first_name . " " .  $contact->last_name ?>"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="<?= site_url('deactivate/' . $contact->id) ?>">
+                                <i class="fas fa-user-minus fa-lg" title="Deactivate contact <?= $contact->first_name . " " .  $contact->last_name ?>"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="#">
+                                <i class="fas fa-user-times fa-lg" title="Delete contact <?= $contact->first_name . " " .  $contact->last_name ?>"></i>
+                            </a>
+                        </td>
+                        <td>
                             <a href="<?= site_url('contact/'.$contact->slug); ?>">
                                 <?= $contact->first_name . " " . $contact->last_name; ?>
                             </a>
                         </td>
+                        <td><?= $contact->title ?? '' ?></td>
+                        <td><?= isset($contact->birth_date) && $contact->birth_date != 0 ? $contact->birth_date : 'not entered' ?></td>
                         <td><?= $contact->city ?? '' ?></td>
                         <td><?= isset($contact->postcode) ? $contact->postcode : '' ?></td>
-                        <td><?= isset($contact->email) ? $contact->email : '' ?></td>
+                        <td><?= isset($contact->tel) && !empty($contact->tel) ? $contact->tel : 'not entered' ?></td>
+                        <td><?= isset($contact->email) && !empty($contact->email) ? $contact->email : 'not entered' ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
