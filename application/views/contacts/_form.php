@@ -90,3 +90,16 @@
         <input type="text" name="email" value="<?php echo isset($contact['email']) ? $contact['email'] : set_value('email') ?>"/>
     </div>
 </div>
+
+<div class="grid-x grid-padding-x">
+    <div class="cell small-4">
+        <label for="status">Active</label>
+        <input type="checkbox" name="status" value="active"
+            <?php
+            // this is pretty horrible, I'm sure there's a better way...
+            echo (isset($contact['status']) && $contact['status'] == 1) ? 'checked="checked"' : ''
+            ?>
+        >
+        <input type="text" name="email" value="<?php echo isset($contact['email']) ? $contact['email'] : set_value('email') ?>"/>
+    </div>
+</div>

@@ -61,6 +61,13 @@ class Contact_model extends CI_Model
         // the only unique value is the id but that doesn't exist at this point
         // I could use a random hash, but that isn't 100% guaranteed to be unique since the same random number could be generated
 
+        // DRY!!!!
+        if($this->input->post('status') == 'active') {
+            $status = 1;
+        } else {
+            $status = 0;
+        }
+
         $data = array(
             'slug' => $slug,
             'honorific_id' => $this->input->post('honorific_id'),
@@ -72,7 +79,8 @@ class Contact_model extends CI_Model
             'city_id' => $this->input->post('city_id'),
             'postcode' => $this->input->post('postcode'),
             'tel' => $this->input->post('tel'),
-            'email' => $this->input->post('email')
+            'email' => $this->input->post('email'),
+            'status' => $status
         );
 
         return $this->db->insert('contact', $data);
@@ -82,6 +90,13 @@ class Contact_model extends CI_Model
     {
         $slug = url_title($this->input->post('last_name') . "_" . $this->input->post('id'), 'dash', TRUE);
 
+        // DRY!!!!
+        if($this->input->post('status') == 'active') {
+            $status = 1;
+        } else {
+            $status = 0;
+        }
+
         $data = array(
             'slug' => $slug,
             'honorific_id' => $this->input->post('honorific_id'),
@@ -93,7 +108,8 @@ class Contact_model extends CI_Model
             'city_id' => $this->input->post('city_id'),
             'postcode' => $this->input->post('postcode'),
             'tel' => $this->input->post('tel'),
-            'email' => $this->input->post('email')
+            'email' => $this->input->post('email'),
+            'status' => $status
         );
 
         $this->db->where('id', $this->input->post('id'));
@@ -111,6 +127,13 @@ class Contact_model extends CI_Model
     {
         $this->db->where('id',$id);
         $this->db->update('contact', array('status' => 0));
+        return true;
+    }
+
+    public function reactivate_contact($id)
+    {
+        $this->db->where('id',$id);
+        $this->db->update('contact', array('status' => 1));
         return true;
     }
 }

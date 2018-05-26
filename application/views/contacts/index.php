@@ -34,9 +34,15 @@
                             </a>
                         </td>
                         <td>
-                            <a href="<?= site_url('deactivate/' . $contact->id) ?>">
-                                <i class="fas fa-user-minus fa-lg" title="Deactivate contact <?= $contact->first_name . " " .  $contact->last_name ?>"></i>
-                            </a>
+                            <?php if($contact->status == 1) { ?>
+                                <a href="<?= site_url('deactivate/' . $contact->id) ?>">
+                                    <i class="fas fa-user-minus fa-lg" title="Deactivate contact <?= $contact->first_name . " " .  $contact->last_name ?>"></i>
+                                </a>
+                            <?php } else { ?>
+                                <a href="<?= site_url('reactivate/' . $contact->id) ?>">
+                                    <i class="fas fa-user-plus fa-lg" title="Reactivate contact <?= $contact->first_name . " " .  $contact->last_name ?>"></i>
+                                </a>
+                            <?php } ?>
                         </td>
                         <td>
                             <a href="#">
