@@ -19,9 +19,9 @@ class Contact_model extends CI_Model
     {
         if ($slug === FALSE) // if there is no slug, get all the records
         {
-            $this->db->select('contact.*, city.name as city_name');
+            $this->db->select('contact.*, citys.name as city_name');
             $this->db->order_by('last_name', 'ASC');
-            $this->db->join('city', 'city.id = contact.city_id');
+            $this->db->join('citys', 'city.id = contact.city_id');
             $query = $this->db->get('contact'); // I'm going to have to change my table names to plurals, this is bugging me
             return $query->result_array();
         }
@@ -41,10 +41,10 @@ class Contact_model extends CI_Model
      */
     public function fetch_contacts($limit, $start)
     {
-        $this->db->select('contact.*, city.name as city_name, honorific.name as honorific');
+        $this->db->select('contact.*, citys.name as city_name, honorifics.name as honorific');
         $this->db->limit($limit, $start);
-        $this->db->join('city', 'city.id = contact.city_id');
-        $this->db->join('honorific', 'honorific.id = contact.honorific_id');
+        $this->db->join('citys', 'citys.id = contact.city_id');
+        $this->db->join('honorifics', 'honorifics.id = contact.honorific_id');
         $query = $this->db->get('contact');
 
         if ($query->num_rows() > 0) {

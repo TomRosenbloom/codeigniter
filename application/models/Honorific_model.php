@@ -11,7 +11,7 @@ class Honorific_model extends CI_Model
     }
 
     public function get_honorifics() {
-        $query = $this->db->get('honorific');
+        $query = $this->db->get('honorifics');
         return $query->result_array();
     }
 }

@@ -100,6 +100,5 @@
             echo (isset($contact['status']) && $contact['status'] == 1) ? 'checked="checked"' : ''
             ?>
         >
-        <input type="text" name="email" value="<?php echo isset($contact['email']) ? $contact['email'] : set_value('email') ?>"/>
     </div>
 </div>

@@ -11,7 +11,7 @@ class City_model extends CI_Model
     }
 
     public function get_cities() {
-        $query = $this->db->get('city');
+        $query = $this->db->get('citys');
         return $query->result_array();
     }
 }
