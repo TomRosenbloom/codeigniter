@@ -12,22 +12,22 @@ class Contact_model extends CI_Model
 
     public function record_count()
     {
-        return $this->db->count_all('contact');
+        return $this->db->count_all('contacts');
     }
 
     public function get_contacts($slug = FALSE)
     {
         if ($slug === FALSE) // if there is no slug, get all the records
         {
-            $this->db->select('contact.*, citys.name as city_name');
+            $this->db->select('contacts.*, citys.name as city_name');
             $this->db->order_by('last_name', 'ASC');
-            $this->db->join('citys', 'city.id = contact.city_id');
-            $query = $this->db->get('contact'); // I'm going to have to change my table names to plurals, this is bugging me
+            $this->db->join('citys', 'city.id = contacts.city_id');
+            $query = $this->db->get('contacts'); // I'm going to have to change my table names to plurals, this is bugging me
             return $query->result_array();
         }
 
         // if there is a slug, return just the current record - do I not like this!
-        $query = $this->db->get_where('contact', array('slug' => $slug));
+        $query = $this->db->get_where('contacts', array('slug' => $slug));
         return $query->row_array();
     }
 
@@ -41,11 +41,11 @@ class Contact_model extends CI_Model
      */
     public function fetch_contacts($limit, $start)
     {
-        $this->db->select('contact.*, citys.name as city_name, honorifics.name as honorific');
+        $this->db->select('contacts.*, citys.name as city_name, honorifics.name as honorific');
         $this->db->limit($limit, $start);
-        $this->db->join('citys', 'citys.id = contact.city_id');
-        $this->db->join('honorifics', 'honorifics.id = contact.honorific_id');
-        $query = $this->db->get('contact');
+        $this->db->join('citys', 'citys.id = contacts.city_id');
+        $this->db->join('honorifics', 'honorifics.id = contacts.honorific_id');
+        $query = $this->db->get('contacts');
 
         if ($query->num_rows() > 0) {
             foreach ($query->result() as $row) {
@@ -88,7 +88,7 @@ class Contact_model extends CI_Model
             'status' => $status
         );
 
-        return $this->db->insert('contact', $data);
+        return $this->db->insert('contacts', $data);
     }
 
     public function update_contact()
@@ -118,27 +118,27 @@ class Contact_model extends CI_Model
         );
 
         $this->db->where('id', $this->input->post('id'));
-        return $this->db->update('contact', $data);
+        return $this->db->update('contacts', $data);
     }
 
     public function delete_contact($id)
     {
         $this->db->where('id',$id);
-        $this->db->delete('contact');
+        $this->db->delete('contacts');
         return true;
     }
 
     public function deactivate_contact($id)
     {
         $this->db->where('id',$id);
-        $this->db->update('contact', array('status' => 0));
+        $this->db->update('contacts', array('status' => 0));
         return true;
     }
 
     public function reactivate_contact($id)
     {
         $this->db->where('id',$id);
-        $this->db->update('contact', array('status' => 1));
+        $this->db->update('contacts', array('status' => 1));
         return true;
     }
 }
