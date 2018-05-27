@@ -130,7 +130,7 @@ class Contacts extends CI_Controller {
         $this->load->helper('form');
         $this->load->library('form_validation');
 
-        $data['contact'] = $this->contact_model->get_contacts($slug);
+        $data['contact'] = $this->contact_model->get_contact($slug);
 
         if (empty($data['contact']))
         {

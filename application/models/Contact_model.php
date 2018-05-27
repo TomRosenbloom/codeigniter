@@ -4,15 +4,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Contact_model extends CI_Model
 {
 
+    private $table_name;
+
     public function __construct()
     {
         parent::__construct(); // code smell: https://martinfowler.com/bliki/CallSuper.html
         $this->load->database();
+        $this->table_name = 'contacts';
     }
 
     public function record_count()
     {
-        return $this->db->count_all('contacts');
+        return $this->db->count_all($this->table_name);
     }
 
     /*
@@ -20,17 +23,19 @@ class Contact_model extends CI_Model
      */
     public function get_contact($slug = FALSE)
     {
-        $query = $this->db->get_where('contacts', array('slug' => $slug));
+        $query = $this->db->get_where($this->table_name, array('slug' => $slug));
         return $query->row_array();
     }
 
     public function fetch_contacts($limit, $start)
     {
-        $this->db->select('contacts.*, citys.name as city_name, honorifics.name as honorific');
+
+        //echo $limit, $start;
+        $this->db->select($this->table_name . '.*, citys.name as city_name, honorifics.name as honorific');
         $this->db->limit($limit, $start);
         $this->db->join('citys', 'citys.id = contacts.city_id');
         $this->db->join('honorifics', 'honorifics.id = contacts.honorific_id');
-        $query = $this->db->get('contacts');
+        $query = $this->db->get($this->table_name);
 
         if ($query->num_rows() > 0) {
             foreach ($query->result() as $row) {
@@ -73,7 +78,7 @@ class Contact_model extends CI_Model
             'status' => $status
         );
 
-        return $this->db->insert('contacts', $data);
+        return $this->db->insert($this->table_name, $data);
     }
 
     public function update_contact()
@@ -103,27 +108,27 @@ class Contact_model extends CI_Model
         );
 
         $this->db->where('id', $this->input->post('id'));
-        return $this->db->update('contacts', $data);
+        return $this->db->update($this->table_name, $data);
     }
 
     public function delete_contact($id)
     {
         $this->db->where('id',$id);
-        $this->db->delete('contacts');
+        $this->db->delete($this->table_name);
         return true;
     }
 
     public function deactivate_contact($id)
     {
         $this->db->where('id',$id);
-        $this->db->update('contacts', array('status' => 0));
+        $this->db->update($this->table_name, array('status' => 0));
         return true;
     }
 
     public function reactivate_contact($id)
     {
         $this->db->where('id',$id);
-        $this->db->update('contacts', array('status' => 1));
+        $this->db->update($this->table_name, array('status' => 1));
         return true;
     }
 }
