@@ -15,30 +15,15 @@ class Contact_model extends CI_Model
         return $this->db->count_all('contacts');
     }
 
-    public function get_contacts($slug = FALSE)
+    /*
+    get single contact - still using 'slug' but will eradicate this shortly
+     */
+    public function get_contact($slug = FALSE)
     {
-        if ($slug === FALSE) // if there is no slug, get all the records
-        {
-            $this->db->select('contacts.*, citys.name as city_name');
-            $this->db->order_by('last_name', 'ASC');
-            $this->db->join('citys', 'city.id = contacts.city_id');
-            $query = $this->db->get('contacts'); // I'm going to have to change my table names to plurals, this is bugging me
-            return $query->result_array();
-        }
-
-        // if there is a slug, return just the current record - do I not like this!
         $query = $this->db->get_where('contacts', array('slug' => $slug));
         return $query->row_array();
     }
 
-    /*
-    this is an alternative to get_contacts which initially at least I'm going to use
-    to implement pagination, without breaking get_contacts()
-    Longer term, I really don't like the way that the current get_contacts gets either
-    all or one contact depending on existence of slug - that is really bad practice
-    violates first principle of SOLID
-    (where did I get this code from? Not Traversy surely - no, from the CI docs)
-     */
     public function fetch_contacts($limit, $start)
     {
         $this->db->select('contacts.*, citys.name as city_name, honorifics.name as honorific');

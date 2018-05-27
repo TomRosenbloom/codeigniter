@@ -69,6 +69,7 @@ class Contacts extends CI_Controller {
         $pagination_config['cur_tag_close'] = '</li>';
 
         $start_index = ($this->uri->segment($uri_segment_page_no)) ? $this->uri->segment($uri_segment_page_no) : 0;
+        //if($start_index == 8) { $start_index = 7; }
 
         $data['contacts'] = $this->contact_model->fetch_contacts($per_page, $start_index);
 
@@ -84,7 +85,7 @@ class Contacts extends CI_Controller {
     {
         $this->load->helper('form'); // for the delete form/button
 
-        $data['contact'] = $this->contact_model->get_contacts($slug);
+        $data['contact'] = $this->contact_model->get_contact($slug);
 
         if (empty($data['contact']))
         {
