@@ -30,7 +30,7 @@
                 <?php foreach ($contacts as $contact): ?>
                     <tr <?php echo ($contact->status == 0) ? 'class="deactivated"' : '' ?> >
                         <td>
-                            <a href="<?= site_url('edit/' . $contact->slug) ?>">
+                            <a href="<?= site_url('edit/' . $contact->id) ?>">
                                 <i class="fas fa-user-edit fa-lg" title="Edit contact <?= $contact->first_name . " " .  $contact->last_name ?>"></i>
                             </a>
                         </td>
@@ -51,7 +51,7 @@
                             </a>
                         </td>
                         <td>
-                            <a href="<?= site_url('contact/'.$contact->slug); ?>">
+                            <a href="<?= site_url('contact/'.$contact->id); ?>">
                                 <?= $contact->first_name . " " . $contact->last_name; ?>
                             </a>
                         </td>

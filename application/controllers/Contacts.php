@@ -10,6 +10,7 @@ class Contacts extends CI_Controller {
         $this->load->model('city_model');
         $this->load->helper('url_helper');
         $this->load->library('pagination');
+        $this->load->library('form_validation');
     }
 
 
@@ -103,7 +104,6 @@ class Contacts extends CI_Controller {
     public function create()
     {
         $this->load->helper('form');
-        $this->load->library('form_validation');
 
         $data['title'] = 'Contact - create';
         $data['heading'] = 'Add new contact';
@@ -124,13 +124,12 @@ class Contacts extends CI_Controller {
         }
     }
 
-    public function edit($slug)
+    public function edit($id)
     {
 
         $this->load->helper('form');
-        $this->load->library('form_validation');
 
-        $data['contact'] = $this->contact_model->get_contact($slug);
+        $data['contact'] = $this->contact_model->get_contact($id);
 
         if (empty($data['contact']))
         {

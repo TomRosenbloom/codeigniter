@@ -12,7 +12,7 @@
       &nbsp;
   </div>
   <div class="cell">
-      <button type="button" class="success button"><a href="<?= site_url('edit/' . $contact['slug']) ?>">Edit</a></button>
+      <button type="button" class="success button"><a href="<?= site_url('edit/' . $contact['id']) ?>">Edit</a></button>
       <button type="button" class="warning button"><a href="<?= site_url('deactivate/' . $contact['id']) ?>">Deactivate</a></button>
       <?php echo form_open('delete/' . $contact['id'], array('onsubmit' => "return confirm('Really delete?')", 'style' => "display: inline")); ?>
           <input type="submit" value="Delete" class="alert button">

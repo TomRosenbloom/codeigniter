@@ -18,12 +18,9 @@ class Contact_model extends CI_Model
         return $this->db->count_all($this->table_name);
     }
 
-    /*
-    get single contact - still using 'slug' but will eradicate this shortly
-     */
-    public function get_contact($slug = FALSE)
+    public function get_contact($id)
     {
-        $query = $this->db->get_where($this->table_name, array('slug' => $slug));
+        $query = $this->db->get_where($this->table_name, array('id' => $id));
         return $query->row_array();
     }
 
