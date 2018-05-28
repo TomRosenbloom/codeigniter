@@ -43,9 +43,9 @@
         <div class="grid-container">
             <header>
                 <div class="grid-x grid-padding-x">
-                  <div class="large-12 cell">
-                    <span class=""><a href="<?php echo base_url();?>">Contacts database</a></span>
-                  </div>
+                    <div class="cell large-6"><a href="<?php echo base_url();?>">Contacts database</a></div>
+                    <div class="cell large-6 text-right"><?php echo anchor('logout', 'Logout');?></div>
+
                 </div>
             </header>
             <main>

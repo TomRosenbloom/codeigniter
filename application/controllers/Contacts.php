@@ -1,6 +1,6 @@
 <?php
 
-class Contacts extends CI_Controller {
+class Contacts extends MY_Controller {
 
     public function __construct()
     {
@@ -11,6 +11,7 @@ class Contacts extends CI_Controller {
         $this->load->helper('url_helper');
         $this->load->library('pagination');
         $this->load->library('form_validation');
+		$this->load->library('ion_auth');
     }
 
 
@@ -36,6 +37,41 @@ class Contacts extends CI_Controller {
             return TRUE;
         }
     }
+
+
+	public function login()
+    {
+        $this->data['title'] = "Login";
+
+		$this->load->library('form_validation');
+        $this->form_validation->set_rules('username', 'Username', 'trim|required');
+        $this->form_validation->set_rules('password', 'Password', 'required');
+        if ($this->form_validation->run() === FALSE)
+        {
+			$this->load->helper('form');
+            $this->render('contacts/login_view');
+        }
+        else
+        {
+            $remember = (bool) $this->input->post('remember');
+            if ($this->ion_auth->login($this->input->post('username'), $this->input->post('password'), $remember))
+            {
+                redirect('contacts/index');
+            }
+            else
+            {
+                $_SESSION['auth_message'] = $this->ion_auth->errors();
+                $this->session->mark_as_flash('auth_message');
+                redirect('contacts/login');
+            }
+        }
+    }
+
+	public function logout()
+	{
+		$this->ion_auth->logout();
+		redirect('dashboard/index');
+	}
 
 
     public function index()
