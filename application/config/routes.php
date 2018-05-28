@@ -3,6 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $route['default_controller'] = 'contacts';
 
+$route['dashboard'] = 'dashboard/index';
+
 $route['(:num)'] = 'contacts/index/$1';
 $route['contacts'] = 'contacts/index';
 
