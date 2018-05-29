@@ -160,7 +160,7 @@ class Contacts extends CI_Controller {
             if($this->input->post('submit') === 'Delete') {
                 $this->contact_model->delete_contact($id);
             }
-            redirect(base_url() . $this->session->return_uri);
+            redirect('contacts');
         } else {
             $data['contact'] = $this->contact_model->get_contact($id);
             if (empty($data['contact']))
@@ -236,6 +236,8 @@ class Contacts extends CI_Controller {
     // the only reason to have two separate ones really is if you sometimes want to have it without a confirmation
     // (i.e. without a confirmation *page*, you could still use a js dialogue, which is maybe better way anyway)
     // NB don't forget to make this a soft delete
+    // NB also re delete, there isn't the same issue because you will always want to return to contacts/index
+    // why have deactivate *and* (soft) delete? To allow people to get rid of contacts added in error or duplicates
     public function delete($id) {
         $this->contact_model->delete_contact($id);
         redirect('contacts');

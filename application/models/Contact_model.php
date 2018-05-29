@@ -5,12 +5,14 @@ class Contact_model extends CI_Model
 {
 
     private $table_name;
+    private $soft_delete = FALSE; // NB need to look at using a generic (third party) MY_Model for this kind of thing
 
     public function __construct()
     {
         parent::__construct(); // code smell: https://martinfowler.com/bliki/CallSuper.html
         $this->load->database();
         $this->table_name = 'contacts';
+        $this->soft_delete = TRUE;
     }
 
     public function record_count()
@@ -32,6 +34,7 @@ class Contact_model extends CI_Model
         $this->db->limit($limit, $start);
         $this->db->join('citys', 'citys.id = contacts.city_id', 'left');
         $this->db->join('honorifics', 'honorifics.id = contacts.honorific_id', 'left');
+        $this->db->where('deleted_at IS NULL');
         $query = $this->db->get($this->table_name);
 
         if ($query->num_rows() > 0) {
@@ -110,9 +113,15 @@ class Contact_model extends CI_Model
 
     public function delete_contact($id)
     {
-        $this->db->where('id',$id);
-        $this->db->delete($this->table_name);
-        return true;
+        if($this->soft_delete) {
+            $this->db->where('id',$id);
+            $this->db->update($this->table_name, array('deleted_at' => date('Y-m-d H:i:s')));
+            return true;
+        } else {
+            $this->db->where('id',$id);
+            $this->db->delete($this->table_name);
+            return true;
+        }
     }
 
     public function deactivate_contact($id)
