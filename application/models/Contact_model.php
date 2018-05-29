@@ -112,13 +112,16 @@ class Contact_model extends CI_Model
             'status' => $status
         );
 
+        $this->db->where('id', $this->input->post('id'));
+        $this->db->update($this->table_name, $data);
+
         if($this->db->where('id', $this->input->post('id'))):
             return $this->input->post('id');
         else:
             return false;
         endif;
 
-        return $this->db->update($this->table_name, $data);
+        //return $this->db->update($this->table_name, $data);
     }
 
     public function delete_contact($id)
