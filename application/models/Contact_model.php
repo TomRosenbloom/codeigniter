@@ -50,12 +50,6 @@ class Contact_model extends CI_Model
     {
         $this->load->helper('url');
 
-        $slug = url_title($this->input->post('last_name') . "_" . $this->input->post('id'), 'dash', TRUE);
-
-        // this slug business is a pain - it has to be guaranteed unique so I can't use the name
-        // the only unique value is the id but that doesn't exist at this point
-        // I could use a random hash, but that isn't 100% guaranteed to be unique since the same random number could be generated
-
         // DRY!!!!
         if($this->input->post('status') == 'active') {
             $status = 1;
@@ -64,7 +58,7 @@ class Contact_model extends CI_Model
         }
 
         $data = array(
-            'slug' => $slug,
+            'slug' => '', // don't bother with this for now. To create a unique slug need to use last inserted id
             'honorific_id' => $this->input->post('honorific_id'),
             'first_name' => $this->input->post('first_name'),
             'last_name' => $this->input->post('last_name'),
@@ -83,8 +77,6 @@ class Contact_model extends CI_Model
 
     public function update_contact()
     {
-        $slug = url_title($this->input->post('last_name') . "_" . $this->input->post('id'), 'dash', TRUE);
-
         // DRY!!!!
         if($this->input->post('status') == 'active') {
             $status = 1;
@@ -93,7 +85,7 @@ class Contact_model extends CI_Model
         }
 
         $data = array(
-            'slug' => $slug,
+            'slug' => '',
             'honorific_id' => $this->input->post('honorific_id'),
             'first_name' => $this->input->post('first_name'),
             'last_name' => $this->input->post('last_name'),
@@ -107,7 +99,12 @@ class Contact_model extends CI_Model
             'status' => $status
         );
 
-        $this->db->where('id', $this->input->post('id'));
+        if($this->db->where('id', $this->input->post('id'))):
+            return $this->input->post('id');
+        else:
+            return false;
+        endif;
+
         return $this->db->update($this->table_name, $data);
     }
 

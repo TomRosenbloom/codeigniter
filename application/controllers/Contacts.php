@@ -152,11 +152,32 @@ class Contacts extends CI_Controller {
             $this->load->view('templates/header', $data);
             $this->load->view('contacts/edit', $data);
             $this->load->view('templates/footer');
+        } else {
+            if($this->contact_model->update_contact($id)) {
+                $contact = $this->contact_model->get_contact($id);
+                $message = 'Edited contact ' . $contact['first_name'] . " " . $contact['last_name'];
+            } else {
+                $message = 'There was a problem editing this contact';
+            }
+
+            $this->session->set_flashdata('message',$message);
+            redirect('contacts');
         }
     }
 
+    // inconsistency here: one method for create, two for edit/update
+    // form action in edit is update (but in create is create)
+    // is there any essential reason for a separate update?
     public function update(){
-        $this->contact_model->update_contact();
+        $id = $this->contact_model->update_contact();
+        if($id) {
+            $contact = $this->contact_model->get_contact($id);
+            $message = 'Edited contact ' . $contact['first_name'] . " " . $contact['last_name'];
+        } else {
+            $message = 'There was a problem editing this contact';
+        }
+
+        $this->session->set_flashdata('message',$message);
         redirect('contacts');
     }
 
@@ -165,7 +186,13 @@ class Contacts extends CI_Controller {
     {
         if ($this->input->method() === 'post') {
             if($this->input->post('submit') === 'Delete') {
-                $this->contact_model->delete_contact($id);
+                if($this->contact_model->delete_contact($id)){
+                    $contact = $this->contact_model->get_contact($id);
+                    $message = 'Deleted contact ' . $contact['first_name'] . " " . $contact['last_name'];
+                } else {
+                    $message = 'Could not delete contact ' . $contact['first_name'] . " " . $contact['last_name'];
+                }
+                $this->session->set_flashdata('message',$message);
             }
             redirect('contacts');
         } else {
