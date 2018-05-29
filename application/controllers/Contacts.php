@@ -1,17 +1,18 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Contacts extends MY_Controller {
+class Contacts extends CI_Controller {
 
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('contact_model');
-        $this->load->model('honorific_model');
-        $this->load->model('city_model');
-        $this->load->helper('url_helper');
-        $this->load->library('pagination');
-        $this->load->library('form_validation');
-		$this->load->library('ion_auth');
+        $this->load->model(array('contact_model','honorific_model','city_model'));
+        $this->load->helper(array('url_helper','form'));
+        $this->load->library(array('pagination','form_validation','ion_auth'));
+        if($this->ion_auth->logged_in()===FALSE)
+        {
+            redirect('login');
+        }
     }
 
 
@@ -39,44 +40,9 @@ class Contacts extends MY_Controller {
     }
 
 
-	public function login()
-    {
-        $this->data['title'] = "Login";
-
-		$this->load->library('form_validation');
-        $this->form_validation->set_rules('username', 'Username', 'trim|required');
-        $this->form_validation->set_rules('password', 'Password', 'required');
-        if ($this->form_validation->run() === FALSE)
-        {
-			$this->load->helper('form');
-            $this->render('contacts/login_view');
-        }
-        else
-        {
-            $remember = (bool) $this->input->post('remember');
-            if ($this->ion_auth->login($this->input->post('username'), $this->input->post('password'), $remember))
-            {
-                redirect('contacts/index');
-            }
-            else
-            {
-                $_SESSION['auth_message'] = $this->ion_auth->errors();
-                $this->session->mark_as_flash('auth_message');
-                redirect('contacts/login');
-            }
-        }
-    }
-
-	public function logout()
-	{
-		$this->ion_auth->logout();
-		redirect('dashboard/index');
-	}
-
 
     public function index()
     {
-
         $data['title'] = "Contacts - home";
         $data['heading'] = "Contacts";
 
@@ -89,7 +55,7 @@ class Contacts extends MY_Controller {
         //$pagination_config['uri_segment'] = 1; // how is this supposed to be used?
         $uri_segment_page_no = 1; // the part of the uri that contains the pagination page number
 
-        // here is a load of presentation config, which can only be done here in the controller
+        // here is a load of presentation config, which can only be done here in the controller, afaik
         $pagination_config['full_tag_open'] = '<nav><ul class="pagination">';
         $pagination_config['full_tag_close'] = '</nav></ul>';
         $pagination_config['num_tag_open'] = '<li>';
@@ -106,7 +72,6 @@ class Contacts extends MY_Controller {
         $pagination_config['cur_tag_close'] = '</li>';
 
         $start_index = ($this->uri->segment($uri_segment_page_no)) ? $this->uri->segment($uri_segment_page_no) : 0;
-        //if($start_index == 8) { $start_index = 7; }
 
         $data['contacts'] = $this->contact_model->fetch_contacts($per_page, $start_index);
 
@@ -120,8 +85,6 @@ class Contacts extends MY_Controller {
 
     public function show($slug = NULL)
     {
-        $this->load->helper('form'); // for the delete form/button
-
         $data['contact'] = $this->contact_model->get_contact($slug);
 
         if (empty($data['contact']))
@@ -139,8 +102,6 @@ class Contacts extends MY_Controller {
 
     public function create()
     {
-        $this->load->helper('form');
-
         $data['title'] = 'Contact - create';
         $data['heading'] = 'Add new contact';
         $data['honorifics'] = $this->honorific_model->get_honorifics();
@@ -162,9 +123,6 @@ class Contacts extends MY_Controller {
 
     public function edit($id)
     {
-
-        $this->load->helper('form');
-
         $data['contact'] = $this->contact_model->get_contact($id);
 
         if (empty($data['contact']))

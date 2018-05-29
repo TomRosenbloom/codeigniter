@@ -23,7 +23,7 @@
                 color: SteelBlue;
             }
 
-            /* icon styles */
+            /* font-awesome icon styles */
             .fas {
 
             }
