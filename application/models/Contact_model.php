@@ -17,19 +17,33 @@ class Contact_model extends CI_Model
 
     public function record_count()
     {
-        return $this->db->count_all($this->table_name);
+        $this->db->where('deleted_at IS NULL'); // this will probably fail when something is undeleted
+        $query = $this->db->get($this->table_name);
+        return $query->num_rows();
+        //return $this->db->count_all($this->table_name);
     }
 
+    /**
+     * get a single contact
+     *
+     * @param  integer $id row id (this being php astring will also work)
+     * @return array     results array (or false)
+     */
     public function get_contact($id)
     {
         $query = $this->db->get_where($this->table_name, array('id' => $id));
         return $query->row_array();
     }
 
+    /**
+     * get multiple contacts
+     *
+     * @param  integer $limit number of rows
+     * @param  integer $start start row
+     * @return object        CI results object
+     */
     public function fetch_contacts($limit, $start)
     {
-
-        //echo $limit, $start;
         $this->db->select($this->table_name . '.*, citys.name as city_name, honorifics.name as honorific');
         $this->db->limit($limit, $start);
         $this->db->join('citys', 'citys.id = contacts.city_id', 'left');
@@ -41,6 +55,9 @@ class Contact_model extends CI_Model
             foreach ($query->result() as $row) {
                 $data[] = $row;
             }
+
+echo $query->num_rows(), " ", $this->record_count(), " ", $start, " ", $limit;
+
             return $data;
         }
         return false;
