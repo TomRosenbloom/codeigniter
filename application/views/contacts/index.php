@@ -1,4 +1,11 @@
 <?php //echo "<pre>"; var_dump($contacts); echo "</pre>"; ?>
+<?php if($this->session->flashdata('message')) { ?>
+<div class="grid-x grid-padding-x">
+    <div class="callout success">
+        <?php echo $this->session->flashdata('message'); ?>
+    </div>
+</div>
+<?php } ?>
 <div class="grid-x grid-padding-x">
     <div class="cell">
         <p>

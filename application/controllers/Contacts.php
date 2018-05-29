@@ -120,9 +120,16 @@ class Contacts extends CI_Controller {
         }
         else
         {
+            if($this->contact_model->store_contact()){
+                $id = $this->db->insert_id();
+                $contact = $this->contact_model->get_contact($id);
+                $message = 'Added new contact ' . $contact['first_name'] . " " . $contact['last_name'];
+            } else {
+                $message = 'There was a problem adding this contact';
+            }
 
-            $this->contact_model->store_contact(); // to do: test success
-            redirect('contacts'); // to do: add message
+            $this->session->set_flashdata('message',$message);
+            redirect('contacts');
         }
     }
 
