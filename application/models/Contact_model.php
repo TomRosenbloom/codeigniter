@@ -20,7 +20,6 @@ class Contact_model extends CI_Model
         $this->db->where('deleted_at IS NULL'); // this will probably fail when something is undeleted
         $query = $this->db->get($this->table_name);
         return $query->num_rows();
-        //return $this->db->count_all($this->table_name);
     }
 
     /**
@@ -55,9 +54,6 @@ class Contact_model extends CI_Model
             foreach ($query->result() as $row) {
                 $data[] = $row;
             }
-
-echo $query->num_rows(), " ", $this->record_count(), " ", $start, " ", $limit;
-
             return $data;
         }
         return false;
