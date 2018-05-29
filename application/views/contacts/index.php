@@ -36,17 +36,17 @@
                         </td>
                         <td>
                             <?php if($contact->status == 1) { ?>
-                                <a href="<?= site_url('deactivate/' . $contact->id) ?>">
+                                <a href="<?= site_url('confirm_deactivate/' . $contact->id) ?>">
                                     <i class="fas fa-user-minus fa-lg" title="Deactivate contact <?= $contact->first_name . " " .  $contact->last_name ?>"></i>
                                 </a>
                             <?php } else { ?>
-                                <a href="<?= site_url('reactivate/' . $contact->id) ?>">
+                                <a href="<?= site_url('confirm_reactivate/' . $contact->id) ?>">
                                     <i class="fas fa-user-plus fa-lg" title="Reactivate contact <?= $contact->first_name . " " .  $contact->last_name ?>"></i>
                                 </a>
                             <?php } ?>
                         </td>
                         <td>
-                            <a href="#">
+                            <a href="<?= site_url('confirm_delete/' . $contact->id) ?>">
                                 <i class="fas fa-user-times fa-lg" title="Delete contact <?= $contact->first_name . " " .  $contact->last_name ?>"></i>
                             </a>
                         </td>

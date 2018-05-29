@@ -8,7 +8,7 @@ class Contacts extends CI_Controller {
         parent::__construct();
         $this->load->model(array('contact_model','honorific_model','city_model'));
         $this->load->helper(array('url_helper','form'));
-        $this->load->library(array('pagination','form_validation','ion_auth'));
+        $this->load->library(array('pagination','form_validation','ion_auth','user_agent','session'));
         if($this->ion_auth->logged_in()===FALSE)
         {
             redirect('login');
@@ -43,6 +43,8 @@ class Contacts extends CI_Controller {
 
     public function index()
     {
+        $this->session->return_uri = uri_string();
+
         $data['title'] = "Contacts - home";
         $data['heading'] = "Contacts";
 
@@ -83,9 +85,11 @@ class Contacts extends CI_Controller {
         $this->load->view('templates/footer', $data);
     }
 
-    public function show($slug = NULL)
+    public function show($id)
     {
-        $data['contact'] = $this->contact_model->get_contact($slug);
+        $this->session->return_uri = uri_string();
+
+        $data['contact'] = $this->contact_model->get_contact($id);
 
         if (empty($data['contact']))
         {
@@ -116,8 +120,9 @@ class Contacts extends CI_Controller {
         }
         else
         {
-            $this->contact_model->store_contact();
-            redirect('contacts');
+
+            $this->contact_model->store_contact(); // to do: test success
+            redirect('contacts'); // to do: add message
         }
     }
 
@@ -148,6 +153,89 @@ class Contacts extends CI_Controller {
         redirect('contacts');
     }
 
+
+    public function confirm_delete($id)
+    {
+        if ($this->input->method() === 'post') {
+            if($this->input->post('submit') === 'Delete') {
+                $this->contact_model->delete_contact($id);
+            }
+            redirect(base_url() . $this->session->return_uri);
+        } else {
+            $data['contact'] = $this->contact_model->get_contact($id);
+            if (empty($data['contact']))
+            {
+                show_404();
+            }
+
+            $data['title'] = $data['title'] = 'Contact - delete';
+            $data['heading'] = 'Contact deletion';
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('contacts/confirm_delete', $data);
+            $this->load->view('templates/footer');
+        }
+
+    }
+
+
+    // have a 'change status' method instead of specific de/re-activate?
+    public function confirm_deactivate($id)
+    {
+        if ($this->input->method() === 'post') {
+            if($this->input->post('submit') === 'Deactivate') {
+                $this->contact_model->deactivate_contact($id);
+            }
+            redirect(base_url() . $this->session->return_uri);
+        } else {
+            $data['contact'] = $this->contact_model->get_contact($id);
+            if (empty($data['contact']))
+            {
+                show_404();
+            }
+
+            $data['title'] = $data['title'] = 'Contact - deactivate';
+            $data['heading'] = 'Contact deactivation';
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('contacts/confirm_deactivate', $data);
+            $this->load->view('templates/footer');
+        }
+
+    }
+
+
+    // have a 'change status' method instead of specific de/re-activate?
+    public function confirm_reactivate($id)
+    {
+        if ($this->input->method() === 'post') {
+            if($this->input->post('submit') === 'Reactivate') {
+                $this->contact_model->reactivate_contact($id);
+            }
+            redirect(base_url() . $this->session->return_uri);
+        } else {
+            $data['contact'] = $this->contact_model->get_contact($id);
+            if (empty($data['contact']))
+            {
+                show_404();
+            }
+
+            $data['title'] = $data['title'] = 'Contact - reactivate';
+            $data['heading'] = 'Contact reactivation';
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('contacts/confirm_reactivate', $data);
+            $this->load->view('templates/footer');
+        }
+
+    }
+
+    // there's an argument for getting rid of these e.g. make 'confirm_delete' the only delete function
+    // on the one hand you can argue that confirming a delete and doing it are two different things
+    // on the other, having the redirect to contact bound to the deletion is not right and makes things confusing
+    // the only reason to have two separate ones really is if you sometimes want to have it without a confirmation
+    // (i.e. without a confirmation *page*, you could still use a js dialogue, which is maybe better way anyway)
+    // NB don't forget to make this a soft delete
     public function delete($id) {
         $this->contact_model->delete_contact($id);
         redirect('contacts');

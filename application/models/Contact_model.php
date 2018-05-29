@@ -30,8 +30,8 @@ class Contact_model extends CI_Model
         //echo $limit, $start;
         $this->db->select($this->table_name . '.*, citys.name as city_name, honorifics.name as honorific');
         $this->db->limit($limit, $start);
-        $this->db->join('citys', 'citys.id = contacts.city_id');
-        $this->db->join('honorifics', 'honorifics.id = contacts.honorific_id');
+        $this->db->join('citys', 'citys.id = contacts.city_id', 'left');
+        $this->db->join('honorifics', 'honorifics.id = contacts.honorific_id', 'left');
         $query = $this->db->get($this->table_name);
 
         if ($query->num_rows() > 0) {
