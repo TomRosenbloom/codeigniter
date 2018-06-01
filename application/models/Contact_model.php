@@ -120,8 +120,6 @@ class Contact_model extends CI_Model
         else:
             return false;
         endif;
-
-        //return $this->db->update($this->table_name, $data);
     }
 
     public function delete_contact($id)

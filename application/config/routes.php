@@ -18,7 +18,6 @@ $route['reactivate/(:any)'] = 'contacts/reactivate/$1';
 $route['confirm_delete/(:num)'] = '/contacts/confirm_delete/$1';
 $route['delete/(:any)'] = 'contacts/delete/$1';
 $route['edit/(:num)'] = 'contacts/edit/$1';
-$route['update'] = 'contacts/update';
 $route['contact/(:num)'] = 'contacts/show/$1';
 
 $route['404_override'] = '';

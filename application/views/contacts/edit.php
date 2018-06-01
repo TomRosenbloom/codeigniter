@@ -4,7 +4,7 @@
     </div>
 </div>
 
-<?php echo form_open('update'); ?>
+<?php echo form_open('edit/' . $contact['id']); ?>
 
 <input type="hidden" name="id" value="<?= $contact['id'] ?>">
 
@@ -17,3 +17,14 @@
 </div>
 
 </form>
+
+<script>
+$(function(){
+    $('#dob').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        format: 'mm-dd-yyyy',
+        disableDblClickSelection: true
+    });
+});
+</script>

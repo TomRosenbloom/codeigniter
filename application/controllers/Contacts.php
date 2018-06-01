@@ -165,22 +165,6 @@ class Contacts extends CI_Controller {
         }
     }
 
-    // inconsistency here: one method for create, two for edit/update
-    // form action in edit is update (but in create is create)
-    // is there any essential reason for a separate update?
-    public function update(){
-        $id = $this->contact_model->update_contact();
-        if($id) {
-            $contact = $this->contact_model->get_contact($id);
-            $message = 'Edited contact ' . $contact['first_name'] . " " . $contact['last_name'];
-        } else {
-            $message = 'There was a problem editing this contact';
-        }
-
-        $this->session->set_flashdata('message',$message);
-        redirect('contacts');
-    }
-
 
     public function confirm_delete($id)
     {
