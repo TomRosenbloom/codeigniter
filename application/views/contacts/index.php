@@ -23,7 +23,7 @@
         <table id="contactsTable">
             <thead>
                 <tr>
-                    <th colspan="3">&nbsp;</th>
+                    <th colspan="3" width="60">&nbsp;</th>
                     <th>Name</th>
                     <th>Title</th>
                     <th>Date of birth</th>
@@ -36,12 +36,12 @@
             <tbody>
                 <?php foreach ($contacts as $contact): ?>
                     <tr <?php echo ($contact->status == 0) ? 'class="deactivated"' : '' ?> >
-                        <td>
+                        <td class="iconCell">
                             <a href="<?= site_url('edit/' . $contact->id) ?>">
                                 <i class="fas fa-user-edit fa-lg" title="Edit contact <?= $contact->first_name . " " .  $contact->last_name ?>"></i>
                             </a>
                         </td>
-                        <td>
+                        <td class="iconCell">
                             <?php if($contact->status == 1) { ?>
                                 <a href="<?= site_url('confirm_deactivate/' . $contact->id) ?>">
                                     <i class="fas fa-user-minus fa-lg" title="Deactivate contact <?= $contact->first_name . " " .  $contact->last_name ?>"></i>
@@ -52,7 +52,7 @@
                                 </a>
                             <?php } ?>
                         </td>
-                        <td>
+                        <td class="iconCell">
                             <a href="<?= site_url('confirm_delete/' . $contact->id) ?>">
                                 <i class="fas fa-user-times fa-lg" title="Delete contact <?= $contact->first_name . " " .  $contact->last_name ?>"></i>
                             </a>
