@@ -36,6 +36,13 @@
             .fa-user-times {
                 color: #cc4b37;
             }
+            .iconCell { /* table cell that icon inhabits*/
+                padding-left: 2px;
+                padding-right: 0;
+            }
+            .deactivated i {
+                color: LightGray;
+            }
         </style>
 
     </head>
