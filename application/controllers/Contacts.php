@@ -197,7 +197,13 @@ class Contacts extends CI_Controller {
     {
         if ($this->input->method() === 'post') {
             if($this->input->post('submit') === 'Deactivate') {
-                $this->contact_model->deactivate_contact($id);
+                if($this->contact_model->deactivate_contact($id)){
+                    $contact = $this->contact_model->get_contact($id);
+                    $message = 'Deactivated contact ' . $contact['first_name'] . " " . $contact['last_name'];
+                } else {
+                    $message = 'Could not deactivate contact ' . $contact['first_name'] . " " . $contact['last_name'];
+                }
+                $this->session->set_flashdata('message',$message);
             }
             redirect(base_url() . $this->session->return_uri);
         } else {
@@ -223,7 +229,13 @@ class Contacts extends CI_Controller {
     {
         if ($this->input->method() === 'post') {
             if($this->input->post('submit') === 'Reactivate') {
-                $this->contact_model->reactivate_contact($id);
+                if($this->contact_model->reactivate_contact($id)){
+                    $contact = $this->contact_model->get_contact($id);
+                    $message = 'Reactivated contact ' . $contact['first_name'] . " " . $contact['last_name'];
+                } else {
+                    $message = 'Could not reactivate contact ' . $contact['first_name'] . " " . $contact['last_name'];
+                }
+                $this->session->set_flashdata('message',$message);
             }
             redirect(base_url() . $this->session->return_uri);
         } else {
