@@ -6,8 +6,8 @@ class Contact_model extends CI_Model
 
     private $_table_name;
     private $_soft_delete = FALSE; // NB need to look at using a generic (third party) MY_Model for this kind of thing
-    private $_order_by;
-    private $_order_direction;
+    //private $_order_by;
+    //private $_order_direction;
 
     public function __construct()
     {
@@ -16,8 +16,8 @@ class Contact_model extends CI_Model
         $this->_table_name = 'contacts';
         $this->_soft_delete = TRUE; // currently always true - I'm setting a default on the property *and* in the constructor
                                     // which is non-sensical, but thinking ahead to when this might be an option on a generic controller
-        $this->_order_by = 'last_name'; // same deal here, however this can be user-specified
-        $this->_order_direction = 'ASC';
+        //$this->_order_by = 'last_name'; // same deal here, however this can be user-specified
+        //$this->_order_direction = 'ASC';
     }
 
     public function record_count()
@@ -46,14 +46,14 @@ class Contact_model extends CI_Model
      * @param  integer $start start row
      * @return object        CI results object
      */
-    public function fetch_contacts($limit, $start)
+    public function fetch_contacts($limit, $start, $order_by)
     {
         $this->db->select($this->_table_name . '.*, citys.name as city_name, honorifics.name as honorific');
         $this->db->limit($limit, $start);
         $this->db->join('citys', 'citys.id = contacts.city_id', 'left');
         $this->db->join('honorifics', 'honorifics.id = contacts.honorific_id', 'left');
         $this->db->where('deleted_at IS NULL');
-        $this->db->order_by($this->_order_by, $this->_order_direction);
+        $this->db->order_by($order_by, 'ASC');
         $query = $this->db->get($this->_table_name);
 
         if ($query->num_rows() > 0) {

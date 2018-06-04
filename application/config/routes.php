@@ -20,5 +20,9 @@ $route['delete/(:any)'] = 'contacts/delete/$1';
 $route['edit/(:num)'] = 'contacts/edit/$1';
 $route['contact/(:num)'] = 'contacts/show/$1';
 
+
+$route['(:num)/(:any)'] = 'contacts/index/$1/$2';
+$route['(:any)'] = 'contacts/index/$2';
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

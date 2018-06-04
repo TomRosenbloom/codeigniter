@@ -34,7 +34,18 @@ class Contacts extends CI_Controller {
 
     public function index()
     {
+        // store the current page of pagination in session so we can return there after edit etc
         $this->session->return_uri = uri_string();
+
+        // bodge - set order for result set. If the first uri segment is non-numeric then order has been set,
+        // so reset the 'order_by' session var to new value (and pagination is reset to first page)
+        // This is a terrbile way to do this - what happens when I want to add desc/asc, or anything else?
+        // Need to sort out a proper way i.e. how to add a query string or use remap for name/value pairs
+        // Or, do the whole thing with js/ajax
+        if(($this->uri->segment(1) !== null) && !is_numeric($this->uri->segment(1))) {
+            $this->session->order_by = $this->uri->segment(1);
+        }
+        $order_by = (isset($this->session->order_by)) ? $this->session->order_by : 'last_name';
 
         $data['title'] = "Contacts - home";
         $data['heading'] = "Contacts";
@@ -66,7 +77,7 @@ class Contacts extends CI_Controller {
 
         $start_index = ($this->uri->segment($uri_segment_page_no)) ? $this->uri->segment($uri_segment_page_no) : 0;
 
-        $data['contacts'] = $this->contact_model->fetch_contacts($per_page, $start_index);
+        $data['contacts'] = $this->contact_model->fetch_contacts($per_page, $start_index, $order_by);
 
         $this->pagination->initialize($pagination_config);
         $data['links'] = $this->pagination->create_links();

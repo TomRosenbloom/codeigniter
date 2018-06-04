@@ -24,11 +24,11 @@
             <thead>
                 <tr>
                     <th colspan="3" width="60">&nbsp;</th>
-                    <th>Name</th>
+                    <th><a href="<?= site_url('/' . 'last_name') ?>">Name</a></th>
                     <th>Title</th>
                     <th>Date of birth</th>
                     <th>City</th>
-                    <th>Postcode</th>
+                    <th><a href="<?= site_url('/' . 'postcode') ?>">Postcode</a></th>
                     <th>Telephone</th>
                     <th>Email</th>
                 </tr>
