@@ -9,7 +9,9 @@ class Contacts extends CI_Controller {
         $this->load->model(array('contact_model','honorific_model','city_model'));
         $this->load->helper(array('url_helper','form'));
         $this->load->library(array('pagination','form_validation','ion_auth','user_agent','session'));
-        if($this->ion_auth->logged_in()===FALSE)
+
+        // apply authentication universally
+        if($this->ion_auth->logged_in() === FALSE)
         {
             redirect('login');
         }
@@ -129,6 +131,9 @@ class Contacts extends CI_Controller {
             }
 
             $this->session->set_flashdata('message',$message);
+
+            // work out what page the new contact will be on, based on ordering
+            // 
             redirect('contacts');
         }
     }
@@ -161,7 +166,8 @@ class Contacts extends CI_Controller {
             }
 
             $this->session->set_flashdata('message',$message);
-            redirect('contacts');
+
+            redirect(base_url() . $this->session->return_uri);
         }
     }
 
