@@ -6,7 +6,7 @@ class Contacts extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model(array('contact_model','honorific_model','city_model'));
+        $this->load->model(array('contact_model','honorific_model','city_model', 'postcode_model'));
         $this->load->helper(array('url_helper','form'));
         $this->load->library(array('pagination','form_validation','ion_auth','user_agent','session'));
 
@@ -18,19 +18,9 @@ class Contacts extends CI_Controller {
     }
 
 
-    /**
-     * verifies string is valid full UK postcode OR just the area code e.g. EX4
-     *
-     * note, this only verifies the format, and not that the post code exists
-     * note 2, this needs moving somewhere else in due course, but I think to do that I would
-     * need to change the way I am calling it: https://www.codeigniter.com/userguide3/libraries/form_validation.html
-     *
-     * @param  string $str
-     * @return bool
-     */
     public function validate_postcode($str)
     {
-        if (1 !== preg_match("/^(GIR ?0AA|[A-PR-UWYZ]([0-9]{1,2}|([A-HK-Y][0-9]([0-9ABEHMNPRV-Y])?)|[0-9][A-HJKPS-UW]) ?([0-9][ABD-HJLNP-UW-Z]{2})?)$/", $str))
+        if (!($this->postcode_model->valid_postcode($str) || $this->postcode_model->valid_area_code($str)))
         {
             $this->form_validation->set_message('validate_postcode', 'The %s field must contain a valid UK postcode or area code');
             return FALSE;
@@ -40,7 +30,6 @@ class Contacts extends CI_Controller {
             return TRUE;
         }
     }
-
 
 
     public function index()
@@ -133,7 +122,7 @@ class Contacts extends CI_Controller {
             $this->session->set_flashdata('message',$message);
 
             // work out what page the new contact will be on, based on ordering
-            // 
+            //
             redirect('contacts');
         }
     }
