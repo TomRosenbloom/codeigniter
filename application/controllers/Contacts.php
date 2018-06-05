@@ -134,7 +134,7 @@ class Contacts extends CI_Controller {
 
             // work out what page the new contact will be on, based on ordering
             //
-            redirect('contacts');
+            redirect(base_url());
         }
     }
 
@@ -184,7 +184,7 @@ class Contacts extends CI_Controller {
                 }
                 $this->session->set_flashdata('message',$message);
             }
-            redirect('contacts');
+            redirect(base_url());
         } else {
             $data['contact'] = $this->contact_model->get_contact($id);
             if (empty($data['contact']))
@@ -276,16 +276,16 @@ class Contacts extends CI_Controller {
     // why have deactivate *and* (soft) delete? To allow people to get rid of contacts added in error or duplicates
     public function delete($id) {
         $this->contact_model->delete_contact($id);
-        redirect('contacts');
+        redirect(base_url());
     }
 
     public function deactivate($id) {
         $this->contact_model->deactivate_contact($id);
-        redirect('contacts');
+        redirect(base_url());
     }
 
     public function reactivate($id) {
         $this->contact_model->reactivate_contact($id);
-        redirect('contacts');
+        redirect(base_url());
     }
 }
