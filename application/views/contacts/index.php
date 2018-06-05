@@ -3,8 +3,8 @@
 <div class="grid-x grid-padding-x">
     <div class="callout success">
         <span class="">
-        <?php echo $this->session->flashdata('message'); ?>
-    </span>
+            <?php echo strip_tags($this->session->flashdata('message')); ?>
+        </span>
 
         <span class="closeDiv"><a href=""><i class="fas fa-times" style="margin-left: 10px; color: lightgrey;"></i></a></span>
     </div>
