@@ -11,6 +11,7 @@ class City_model extends CI_Model
     }
 
     public function get_cities() {
+        $this->db->order_by('name', 'ASC');
         $query = $this->db->get('citys');
         return $query->result_array();
     }
