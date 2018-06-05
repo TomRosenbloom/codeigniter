@@ -97,7 +97,7 @@
         <input type="checkbox" name="status" value="active"
             <?php
             // this is pretty horrible, I'm sure there's a better way...
-            echo (isset($contact['status']) && $contact['status'] == 1) ? 'checked="checked"' : ''
+            echo ((isset($contact['status']) && $contact['status'] == 1) || !isset($contact)) ? 'checked="checked"' : ''
             ?>
         >
     </div>
