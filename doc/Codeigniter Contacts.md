@@ -37,6 +37,12 @@ For the front end, we use Foundation 6 framework and jQuery. However, you can co
 - htaccess in root for security
 - Use of Foundation styles and scripts
 
+## Issues
+
+Found it difficult to get good quality/up-to-date information about both Codeigniter and Foundation, compared with say Laravel and Bootstrap.
+
+Certain specific issues were particularly time-consuming e.g. getting pagination to work at all and in particular returning to correct page of pagination after an update, combining pagination and ordering parameters in routes. 
+
 ## Further development
 
 The current system is very PHP heavy and as such is a little old-fashioned. There's a lot of client/server interaction that could be avoided with greater use of Javascript. The confirmation forms for deactivation and deletion could be replaced with modal dialogues. The listing could be done with javascript Datatables or similar. There are some additional features that could be added with javascript e.g. an Ajax lookup to check for possible duplicates when entering a contact.
@@ -45,6 +51,16 @@ There are pros and cons to making a system like this more server side/client sid
 
 The reason it's turned out this way is I've concentrated most of my effort on learning Codeigniter. One thing in particular that I ended up spending a lot of time on was getting pagination working and then reconciling it with routing e.g. when allowing for ordering on column heads. I could have avoided this by using Datatables, but I wanted to properly understand CI as much as possible.
 
-Use SASS to compile assets esp. to incorporate motion-ui to allow dismissing flash messages
+### Sass
+
+Use SASS to compile assets esp. to incorporate motion-ui to allow dismissing of flash messages
+
+### Search
 
 Filtering/searching
+
+### Other to-dos
+
+- ajax look up for existing contacts
+- dismiss flash messages
+

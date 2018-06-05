@@ -2,9 +2,12 @@
         </div>
 
         <script>
-            $( function() {
-                $( document ).tooltip();
-            } );
+            $(function() {
+                $(document).tooltip();
+                $(".closeDiv").click(function(){
+                    $("div .success").remove();
+                });
+            });
         </script>
 
     </body>
