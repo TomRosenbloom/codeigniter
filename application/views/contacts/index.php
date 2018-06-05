@@ -24,6 +24,7 @@
 </div>
 <div class="grid-x grid-padding-x">
     <div class="cell">
+	<?php if($contacts) { ?>
         <table id="contactsTable">
             <thead>
                 <tr>
@@ -76,5 +77,8 @@
                 <?php endforeach; ?>
             </tbody>
         </table>
-    </div>
+    <?php } else { ?>
+	No contacts found
+	<?php } ?>
+	</div>
 </div>

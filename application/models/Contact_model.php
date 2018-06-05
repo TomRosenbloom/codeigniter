@@ -77,7 +77,7 @@ class Contact_model extends CI_Model
         }
 
         $data = array(
-            'slug' => '', // don't bother with this for now. To create a unique slug need to use last inserted id
+            //'slug' => '', // don't bother with this for now. To create a unique slug need to use last inserted id
             'honorific_id' => $this->input->post('honorific_id'),
             'first_name' => $this->input->post('first_name'),
             'last_name' => $this->input->post('last_name'),
@@ -104,7 +104,7 @@ class Contact_model extends CI_Model
         }
 
         $data = array(
-            'slug' => '',
+            //'slug' => '',
             'honorific_id' => $this->input->post('honorific_id'),
             'first_name' => $this->input->post('first_name'),
             'last_name' => $this->input->post('last_name'),
