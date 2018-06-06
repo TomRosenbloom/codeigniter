@@ -32,16 +32,19 @@ For the front end, we use Foundation 6 framework and jQuery. However, you can co
   - 
 - Very simple data model: a table of Contacts, two look-up tables for foreign key relations to Honorific and City
 - Simple authentication using Ion-auth
-- View templates
-- Migrations
+- View templates - header.php using html header tag, unique h1 in each page (not remotely important for a non-public site actually, but still...)
+- Migrations - used third party package to create and run migrations (and tried seeding but couldn't get that to work)
 - htaccess in root for security
 - Use of Foundation styles and scripts
+- [Use of GitHub, including branch for trying Ion-Auth, later merged]
 
 ## Issues
 
 Found it difficult to get good quality/up-to-date information about both Codeigniter and Foundation, compared with say Laravel and Bootstrap.
 
 Certain specific issues were particularly time-consuming e.g. getting pagination to work at all and in particular returning to correct page of pagination after an update, combining pagination and ordering parameters in routes. 
+
+See for comparison similar apps done in Laravel or Django - have more features and look much slicker. (NB user@test.com, foobarbaz for Laravel, tom, foobarbaz for Django admin, ChadW for vol, BrianB for org user - vol user sign up is broken btw). Contrast also the treatment of persons/names (Django poetry), and of addresses.
 
 ## Further development
 
@@ -53,14 +56,19 @@ The reason it's turned out this way is I've concentrated most of my effort on le
 
 ### Sass
 
-Use SASS to compile assets esp. to incorporate motion-ui to allow dismissing of flash messages
+Use SASS to compile assets esp. to incorporate motion-ui to allow dismissing of flash messages (have done this in Laravel, but didn't have time to figure out to do it with CI/Foundation)
 
 ### Search
 
-Filtering/searching
+Filtering/searching in index page - had a go at installing Elastic Search but not enough time (and not enough good documentation). Could have done a simpler version using MySQL full-text search or LIKE. Neither of these are good solutions.
 
 ### Other to-dos
 
+- add search, filter, order by, number per page
 - ajax look up for existing contacts
-- dismiss flash messages
+- get rid of some SOLID/DRY violations
+  - handling of POST vars in store_contact and update_contact
+- make the css properly responsive
+- move temp css files out of header (contingent on SASS)
+- get rid of 'reactivate' terminology, replace with just 'activate'
 

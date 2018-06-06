@@ -81,7 +81,7 @@ class Contact_model extends CI_Model
             'honorific_id' => $this->input->post('honorific_id'),
             'first_name' => $this->input->post('first_name'),
             'last_name' => $this->input->post('last_name'),
-            'birth_date' => $this->input->post('birth_date'),
+            'birth_date' => date('Y-m-d',strtotime($this->input->post('birth_date'))), // not good
             'addr_1' => $this->input->post('addr_1'),
             'addr_2' => $this->input->post('addr_2'),
             'city_id' => $this->input->post('city_id'),
@@ -108,7 +108,7 @@ class Contact_model extends CI_Model
             'honorific_id' => $this->input->post('honorific_id'),
             'first_name' => $this->input->post('first_name'),
             'last_name' => $this->input->post('last_name'),
-            'birth_date' => $this->input->post('birth_date'),
+            'birth_date' => date('Y-m-d',strtotime($this->input->post('birth_date'))), // ...even more not good
             'addr_1' => $this->input->post('addr_1'),
             'addr_2' => $this->input->post('addr_2'),
             'city_id' => $this->input->post('city_id'),
